@@ -1,0 +1,49 @@
+//写的不太好
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<functional>
+using namespace std;
+void printInt(int i)
+{
+	cout<<i<<endl;
+}
+int main()
+{
+	vector<int> num;
+	int m;
+	char c;
+	while((c=cin.get())!='\n')
+	{
+		cin.unget();
+		cin>>m;
+		num.push_back(m);
+	}
+	for (vector<int>::iterator it=num.begin();it!=num.end();)
+	{
+		if(*(it+1)!=0)
+		{
+			*it=*it*(*(it+1));
+			*(it+1)=*(it+1)-1;
+			it+=2;
+		}
+		else
+		{
+			it=num.erase(it,it+2);//删除就这样处理，因为删除会是迭代器失效，erase会返回下一个元素的迭代器
+		}
+	}
+	for (vector<int>::iterator iter=num.begin();iter!=num.end(); ++iter)
+	{
+		if (iter!=num.end()-1)
+		{
+			cout<<*iter<<" ";
+		}
+		else
+			cout<<*iter<<endl;
+	}
+	if(num.size()==0)
+		cout<<"0 0"<<endl;
+	//for_each(num.begin(),num.end(),ptr_fun(printInt));//把前面的指针放进printInt里面
+	return 0;
+}

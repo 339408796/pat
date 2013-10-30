@@ -1,0 +1,32 @@
+//这道题为什么用double不行，double好像会丢失精度，有一个BigDecimal（java）来解决
+#include<iostream>
+using namespace std;
+char a[5];
+float  profit=1.0;
+int main()
+{
+	float  k;
+	for(int i=0;i<3;++i)
+	{
+		float  max=0;
+		for(int j=0;j<3;++j)
+		{
+			cin>>k;
+			if(k>max)
+			{
+				max=k;
+				if(j==0)a[i]='W';
+				else if(j==1)a[i]='T';
+				else a[i]='L';
+			}
+		}
+		profit*=max;
+	}
+	profit=(profit*0.65-1.0)*2.0;
+	for(int i=0;i<3;i++)
+		cout<<a[i]<<" ";
+	//cout<<profit<<endl;
+	//profit=37.055;
+	printf("%.2f\n",profit+0.005);
+	return 0;
+}

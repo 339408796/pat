@@ -1,0 +1,42 @@
+#include<iostream>
+
+using namespace std;
+#define MAX 100010
+int distance1[MAX];
+int main()
+{
+	distance1[100010]={0};
+	int n,m;
+	int sumDis=0;
+	cin>>n;
+	for(int i=1;i<=n;++i)
+	{
+		scanf("%d",distance1+i);
+		//cin>>distance[i];
+		sumDis+=distance1[i];
+		distance1[i]=sumDis;
+	}
+	cin>>m;
+	while(m--)
+	{
+		int dis=0;
+		int a,b;
+		int result=0;
+		cin>>a>>b;
+		if(a>b)
+		{
+			int tmp=b;
+			b=a;
+			a=tmp;
+		}
+		if(a==1)
+			result=distance1[b-1];
+		else
+			result=distance1[b-1]-distance1[a-1];
+
+		cout<<(result<(sumDis-result)?result:sumDis-result)<<endl;
+		
+	}
+	return 0;
+
+}

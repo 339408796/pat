@@ -1,0 +1,29 @@
+#include<iostream>
+//判断2种特殊情况
+#include<string>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin>>n;
+	
+	long long a,b,c;
+	int sum=n;
+	while(n--)
+	{
+	cin>>a>>b>>c;
+	long long tmp=a+b;
+	if(a<0&&b<0&&tmp>=0)
+		printf("Case #%d: false\n",sum-n);
+	else if(a>0&&b>0&&tmp<=0)
+		printf("Case #%d: true\n",sum-n);
+	else{
+	if(a+b>c)
+		printf("Case #%d: true\n",sum-n);
+	else
+		printf("Case #%d: false\n",sum-n);
+	}
+	}
+	return 0;
+}

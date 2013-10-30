@@ -1,0 +1,41 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+bool isPrime(int n)//判断素数
+{
+	if(n==0 || n==1)return false;//这个是特殊情况，考虑进去
+	double k=sqrt(n);
+	for(int i=2;i<=k;i++)
+		if(n%i==0)return false;
+	return true;
+}
+int change(int n,int d)//进制转换，在逆转，在进制转换回来
+{
+	int result=0;
+	int a[100000]={0};
+	int i;
+	for(i=0;;i++)
+	{
+		a[i]=n%d;
+		n/=d;
+		if(n==0)break;
+	}
+	for(int j=0;j<=i;j++)
+		result=result*d+a[j];
+	return result;
+}
+int main()
+{
+	int n,d;
+	while(cin>>n)
+	{
+		if(n<0)break;
+		cin>>d;
+		if(isPrime(n)&&isPrime(change(n,d)))
+			cout<<"Yes"<<endl;
+		else
+			cout<<"No"<<endl;
+	}
+	return 0;
+}

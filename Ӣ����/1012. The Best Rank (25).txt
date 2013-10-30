@@ -1,0 +1,128 @@
+//我的代码
+
+#include<iostream>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
+struct student{
+	string name;
+	int c,m,e,a;
+};
+vector<student> s;
+int k=0;//如果有相同的成绩，按同一个排名
+int former=0;//用来保存前面一个数值，在给每个科目排序的时候
+//打印的时候体现一个优先级
+void print (student stu)
+{
+	if(stu.a<=stu.c&&stu.a<=stu.m&&stu.a<=stu.e)
+		printf("%d A\n",stu.a);
+	if(stu.c<stu.a&&stu.c<=stu.m&&stu.c<=stu.e)
+		printf("%d C\n",stu.c);
+	if(stu.m<stu.a&&stu.m<stu.c&&stu.m<=stu.e)
+		printf("%d M\n",stu.m);
+	if(stu.e<stu.a&&stu.e<stu.c&&stu.e<stu.m)
+		printf("%d E\n",stu.e);
+
+}
+bool cmpC(student s1,student s2)
+{
+	return s1.c>s2.c;
+}
+bool cmpM(student s1,student s2)
+{
+	return s1.m>s2.m;
+}
+bool cmpE(student s1,student s2)
+{
+	return s1.e>s2.e;
+}
+bool cmpA(student s1,student s2)
+{
+	return s1.a>s2.a;
+}
+
+void findRank(string str)
+{
+	vector<student>::size_type i;
+	for(i=0;i<s.size();++i)
+	{
+		if(s.at(i).name==str)
+			break;
+	}
+//判断这个字符串在不在里面
+	if(i==s.size())
+	{
+		cout<<"N/A"<<endl;
+		return ;
+	}
+	print(s.at(i));
+}
+int main()
+{
+	int n,m;
+	cin>>n>>m;
+	for(int i=0;i<n;++i)
+	{
+		student stu;
+		cin>>stu.name>>stu.c>>stu.m>>stu.e;
+		stu.a=stu.c+stu.m+stu.e;
+		s.push_back(stu);
+	}
+	//下面的4个sort是给没给科目排序
+	sort(s.begin(),s.end(),cmpC);
+	k=0;
+	former=s.at(0).c;
+	for(vector<student>::size_type i=0;i<s.size();++i)
+	{
+		if(i>=1&&s.at(i).c==former)
+			k++;
+		former=s.at(i).c;
+		s.at(i).c=i-k+1;
+	}
+	sort(s.begin(),s.end(),cmpM);
+	k=0;
+	former=s.at(0).m;
+	for(vector<student>::size_type i=0;i<s.size();++i)
+	{
+		if(i>=1&&s.at(i).m==former)
+			k++;
+		former=s.at(i).m;
+		s.at(i).m=i-k+1;
+	}
+	sort(s.begin(),s.end(),cmpE);
+	k=0;
+	former=s.at(0).e;
+	for(vector<student>::size_type i=0;i<s.size();++i)
+	{
+		if(i>=1&&s.at(i).e==former)
+			k++;
+		former=s.at(i).e;
+		s.at(i).e=i-k+1;
+	}
+	sort(s.begin(),s.end(),cmpA);
+	k=0;
+	former=s.at(0).a;
+	for(vector<student>::size_type i=0;i<s.size();++i)
+	{
+		if(i>=1&&s.at(i).a==former)
+			k++;
+		former=s.at(i).a;
+		s.at(i).a=i-k+1;
+	}
+	
+	
+	/*for(vector<student>::size_type i=0;i<s.size();++i)
+	{
+		cout<<s.at(i).name;
+		printf(" %d %d %d %d\n",s.at(i).c,s.at(i).m,s.at(i).e,s.at(i).a);
+	}*/
+
+	for(int i=0;i<m;++i)
+	{
+		string s;
+		cin>>s;
+		findRank(s);
+	}
+	return 0;
+}

@@ -1,0 +1,70 @@
+//这代码写的太差了，自己都看不下去了
+#include<iostream>
+#include<string>
+using namespace std;
+//string week[7]={"MON","TUE","WED","THU","FRI","SAT","SUN"};
+int main()
+{
+	string a,b,c,d;
+	bool flag=0;
+	cin>>a>>b>>c>>d;
+	for(int i=0;i<(a.length()<b.length()?a.length():b.length());++i)
+	{
+		if(a.at(i)==b.at(i))
+		{
+			if(flag==0 &&a.at(i)>='A'&&a.at(i)<='G')
+			{
+				switch(a.at(i))
+				{
+				case 'A':
+					cout<<"MON ";
+					break;
+				case 'B':
+					cout<<"TUE ";
+					break;
+				case 'C':
+					cout<<"WED ";
+					break;
+				case 'D':
+					cout<<"THU ";
+					break;
+				case 'E':
+					cout<<"FRI ";
+					break;
+				case 'F':
+					cout<<"SAT ";
+					break;
+				case 'G':
+					cout<<"SUN ";
+					break;
+				}
+				flag=1;
+				continue;
+				//cout<<"flag="<<flag<<endl;
+			}
+			if(flag==1)
+			{
+				if(a.at(i)>='0'&&a.at(i)<='9')
+				{
+					cout<<"0"<<a.at(i)<<":";
+					break;
+				}else if(a.at(i)>='A'&&a.at(i)<='O')
+				{
+					cout<<a.at(i)-55<<":";
+					break;
+
+				}
+			}
+		}
+	}
+	for(int i=0;i<(c.length()<d.length()?c.length():d.length());++i)
+	{
+		if(c.at(i)==d.at(i) && (c.at(i)>='a'&&c.at(i)<='z')||(c.at(i)>='A'&&c.at(i)<='Z'))
+		{
+			printf("%02d\n",i);
+			break;
+		}
+	}
+
+	return 0;
+}

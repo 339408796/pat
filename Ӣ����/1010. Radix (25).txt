@@ -1,0 +1,51 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int table[123];
+int main()
+{
+	for(int i=48;i<=57;++i)
+		table[i]=i-48;
+	for(int i=97;i<=122;++i)
+		table[i]=i-87;
+	string str1,str2;
+	int tag,radix;
+	cin>>str1>>str2>>tag>>radix;
+	if(tag==2)
+	{
+		string s=str2;
+		str2=str1;
+		str1=s;
+	}
+	int sum=0;
+	for(string::iterator it=str1.begin();it!=str1.end();++it)
+	{
+		sum=sum*radix+table[*it];
+	}
+	//cout<<"sum = "<<sum<<endl;
+	int sum1=-1;
+	int i=0;
+	for(i=2;sum1<sum;++i)
+	{
+		sum1=0;
+		for(string::iterator it=str2.begin();it!=str2.end();++it)
+		{
+			if(table[*it]>=i)
+			{
+				sum1=-1;
+				break;
+			}
+			sum1=sum1*i+table[*it];
+
+		}
+		if(sum1==0)
+			break;
+		
+	}
+
+	if(sum1==sum)
+		cout<<i-1<<endl;
+	else
+		cout<<"Impossible"<<endl;
+	return 0;
+}

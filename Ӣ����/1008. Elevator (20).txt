@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+int a[1000]={0};
+
+int main()
+{
+	int n;
+	int time=0;
+	cin>>n;
+	int floor;
+	for(int i=0;i<n;++i)
+	{
+		if(i==0)
+		{
+			cin>>floor;
+			a[i]=floor;
+			time+=floor*6;
+			
+		}else
+		{
+			cin>>floor;
+			a[i]=floor;
+			if(floor>a[i-1])time+=6*(floor-a[i-1]);
+			if(floor<a[i-1])time+=4*(a[i-1]-floor);
+			
+		}
+	}
+	time+=n*5;
+	cout<<time<<endl;
+	return 0;
+}

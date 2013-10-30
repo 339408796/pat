@@ -1,0 +1,51 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+
+struct Record{
+	string name;
+	int inTime;
+	int outTime;
+};
+
+int main()
+{
+	int n;
+	cin>>n;
+	vector<Record> rec;
+	for(int i=0;i<n;++i)
+	{
+		Record r;
+		char str[20];
+	//	cin>>str;
+		int hh1=0,mm1=0,ss1=0;
+		int hh2=0,mm2=0,ss2=0;
+		scanf("%s %d:%d:%d %d:%d:%d",str,&hh1,&mm1,&ss1,&hh2,&mm2,&ss2);
+		string s(str);
+		//cout<<str<<endl;
+		r.name=s;
+		r.inTime=3600*hh1+60*mm1+ss1;
+		r.outTime=3600*hh2+60*mm2+ss2;
+		rec.push_back(r);
+	}
+	string unlockName=rec.at(0).name;
+	string lockName=rec.at(0).name;
+	int unlock=rec.at(0).inTime;
+	int lock=rec.at(0).outTime;
+	for(vector<Record>::iterator it=rec.begin();it!=rec.end();++it)
+	{
+		if(unlock>it->inTime)
+		{
+			unlock=it->inTime;
+			unlockName=it->name;
+		}
+		if(lock<it->outTime)
+		{
+			lock=it->outTime;
+			lockName=it->name;
+		}
+	}
+	cout<<unlockName<<" "<<lockName;
+	return 0;
+}

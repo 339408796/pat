@@ -1,0 +1,27 @@
+#include<iostream>
+#include<vector>
+#include<string>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+	char c;
+	vector<string> sentence;
+	string word;
+	 while((c=cin.get())!='\n') //输入到回车位置，这个比较重要
+    { 
+        cin.unget(); 
+		cin>>word;
+		sentence.push_back(word);
+	}
+	reverse(sentence.begin(),sentence.end());
+	for (vector<string>::iterator iter= sentence.begin(); iter!=sentence.end() ; ++iter)
+	{
+		if(iter!=sentence.end()-1)
+			cout<<*iter<<" ";
+		else
+			cout<<*iter<<endl;
+	}
+	return 0;
+}

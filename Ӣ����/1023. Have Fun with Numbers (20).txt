@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+string doubleNum(string a)
+{
+	string b;
+	int jinwei=0;
+	int c;
+	for(string::reverse_iterator it=a.rbegin();it!=a.rend();++it)
+	{
+		c=(*it-'0')*2+jinwei;
+		jinwei=c/10;
+		c=c%10;
+		b.push_back(c+'0');
+	}
+	if(jinwei!=0)
+		b.push_back(jinwei+'0');
+	return b;
+}
+
+bool fun(char a,char b)
+{
+	return a<b;
+}
+
+int main()
+{
+	string a;
+	cin>>a;
+	string b=doubleNum(a);
+	reverse(b.begin(),b.end());
+	string c=b;
+
+	sort(a.begin(),a.end(),fun);
+	sort(b.begin(),b.end(),fun);
+
+	if(a==b)
+		cout<<"Yes"<<endl;
+	else
+		cout<<"No"<<endl;
+	//cout<<a<<endl;
+	cout<<c<<endl;
+	return 0;
+}

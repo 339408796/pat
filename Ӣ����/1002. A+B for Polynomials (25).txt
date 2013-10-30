@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cmath>
+#define MAXNUM 1100
+using namespace std;
+double a[MAXNUM];
+int main()
+{
+	int k,n;
+	double m;
+	int times=2;
+	int count=0;
+	while(times--)
+	{
+		cin>>k;
+		for(int i=0;i<k;++i)
+		{
+			cin>>n;
+			cin>>m;
+			if(fabs(a[n])<1e-8)//fabs（）取绝对值，在cmath中，机器零有时候不一定为零，用<1e-8,来表示==0
+				++count;
+			a[n]+=m;
+			if(fabs(a[n])<1e-8)//如果加上后为零，再减去
+				--count;
+		}
+	}
+	cout<<count;
+	for(int i=MAXNUM-1;i>=0;--i)
+	{
+		if(fabs(a[i])>1e-8)//大于零
+			printf(" %d %.1lf",i,a[i]);//注意输出的格式
+	}
+	return 0;
+}

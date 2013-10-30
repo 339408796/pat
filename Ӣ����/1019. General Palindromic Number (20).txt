@@ -1,0 +1,41 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+//int a[10000]={0};
+vector<long int> a;
+vector<long int> c;
+void change(long int n,long int b)
+{
+	long int k;
+	while(n!=0)
+	{
+		k=n%b;
+		a.push_back(k);
+		n/=b;
+	}
+}
+int main()
+{
+	long int n,b;
+	cin>>n>>b;
+	if(n==0)//当时0的时候要判断
+	{
+		cout<<"Yes"<<endl;
+		cout<<"0"<<endl;
+		return 0;
+	}
+	change(n,b);
+	c.resize(a.size());//先申请vector的空间
+	reverse_copy(a.begin(),a.end(),c.begin());//拷贝一个翻转的vector到另一个vector
+	if(a==c)
+		cout<<"Yes"<<endl;
+	else
+		cout<<"No"<<endl;
+	for(vector<long int>::iterator it=c.begin();it!=c.end();++it)
+		if(it!=c.end()-1)
+			cout<<*it<<" ";
+		else
+			cout<<*it<<endl;
+	return 0;
+}
