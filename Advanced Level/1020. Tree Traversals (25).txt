@@ -1,0 +1,73 @@
+1.一种方法是利用后序和中序构造出树后再BFS（层次遍历）。
+2.另一种，不构造出数，每次直接计算出每个节点的左右儿子节点。
+a.左儿子：通过中序计算出当前节点右子数的节点数量，再通过后序遍历中当前节点位置减去当前节点右子树的数量，后的位置（其实中序就是要来确定当前节点右子树的大小的）。
+rsize=right_size(root);
+left=hash_post[root]-rsize-1;
+b.右儿子就是后序遍历当前node的前一个节点。right=hash_post[root]-1;
+#include<iostream>
+#include<queue>
+#include<cstring>
+using namespace std;
+int *post,*visit;
+const int N=31;
+int hash_post[N],hash_in[N];
+int n;
+int right_size(int root)
+{
+	int i=0,size=0;
+	for(i=hash_in[root]+1;i<=n-1;++i)
+	{
+		if(visit[i]==false)
+			size++;
+		else
+			break;
+	}
+	return size;
+}
+int main()
+{
+	cin>>n;
+	post=new int[n];
+	visit=new int[n];
+	int i,tmp;
+	for(i=0;i<n;++i)
+	{
+		cin>>post[i];
+		hash_post[post[i]]=i;
+	}
+	for(i=0;i<n;++i)
+	{
+		cin>>tmp;
+		hash_in[tmp]=i;
+	}
+	memset(visit,0,n*sizeof(int));
+	queue<int>q;
+	q.push(post[n-1]);
+	cout<<post[n-1];
+	int right=n-1;
+	visit[hash_in[post[n-1]]]=true;
+	while(!q.empty())
+	{
+		int root=q.front();
+		int rsize=right_size(root);
+		int left=hash_post[root]-rsize-1;
+		if(left>=0&&visit[hash_in[post[left]]]==false)
+		{
+			int left_root=post[left];
+			cout<<" "<<left_root;
+			visit[hash_in[left_root]]=true;
+			q.push(left_root);
+		}
+		int right=hash_post[root]-1;
+		if(right>=0&&visit[hash_in[post[right]]]==false)
+		{
+			int right_root=post[right];
+			cout<<" "<<right_root;
+			visit[hash_in[right_root]]=true;
+			q.push(right_root);
+		}
+		q.pop();
+	
+	}
+	return 0;
+}
