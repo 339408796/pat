@@ -57,11 +57,13 @@ void Dijstra(int n,int src, int des)
         int minDis = INF;
         int cur = 0;
         for(j=0; j<n; j++)
+	{
             if(!isVisited[j] && dis[j]<minDis)
             {
                 minDis = dis[j];
                 cur = j;
             }
+	}
         if(minDis == INF) //已经完成了连通路径的遍历。
             return;
         //dis[cur]为dis数组中的最小值，访问节点cur.

@@ -10,58 +10,42 @@
 3
 4
 5
-#include<iostream>
-#define INF 10000000
-#define MAX 1005
-using namespace std;
-
-int hw[MAX][MAX];
-int visit[MAX];
-int counts=0;
+#include<stdio.h>
+#include<string.h>
+#define maxn 1000
+int edge[maxn][maxn];
+int visited[maxn];
 int n,m,k;
-int theCity;
-void dfs(int city)
-{
-	visit[city]=1;
-	//printf("%d ",city);
+void dfs(int t){
 	int i;
-	for(i=1;i<=n;++i)
-	{
-		if(hw[city][i]==1&&visit[i]==0)
-			break;
-	}
-	if(i==n+1)
-		return ;
-	for(int j=1;j<=n;++j)
-	{
-		if(hw[city][j]==1&&visit[j]==0)
-		{
-			if(city==theCity)
-				counts++;
-			dfs(j);
-			//visit[city]=0;
-		}
+	visited[t]=1;
+	for(i=0;i<n;i++){
+		if(!visited[i] && edge[i][t]==1) dfs(i);
 	}
 }
-int main()
-{
+int main(){
 
-	cin>>n>>m>>k;
-	for(int i=0;i<m;++i)
-	{
-		int x,y;
-		cin>>x>>y;
-		hw[x][y]=1;
-		hw[y][x]=1;
+	scanf("%d%d%d",&n,&m,&k);
+	int i,j;
+	int va,vb;
+	for(i=0;i<m;i++){
+		scanf("%d%d",&va,&vb);
+		edge[va-1][vb-1]=1;
+		edge[vb-1][va-1]=1;
 	}
-	for(int i=0;i<k;++i)
-	{
-		cin>>theCity;
-		counts=0;
-		for(int j=1;j<=n;++j)
-			visit[j]=0;
-		dfs(theCity);
-		cout<<counts-1<<endl;
+	int temp,oo;
+	for(i=0;i<k;i++){
+		scanf("%d",&oo);
+		visited[oo-1]=1;
+		temp=0;
+		for(j=0;j<n;j++){
+			if(!visited[j]){
+				dfs(j);//查找有几个分支
+				temp++;
+			}
+		}
+		printf("%d\n",temp-1);
+		memset(visited,0,sizeof(visited));
 	}
 	return 0;
 }
