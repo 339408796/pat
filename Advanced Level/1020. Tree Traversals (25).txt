@@ -4,6 +4,8 @@ a.左儿子：通过中序计算出当前节点右子数的节点数量，再通过后序遍历中当前节点位置减
 rsize=right_size(root);
 left=hash_post[root]-rsize-1;
 b.右儿子就是后序遍历当前node的前一个节点。right=hash_post[root]-1;
+
+
 #include<iostream>
 #include<queue>
 #include<cstring>
