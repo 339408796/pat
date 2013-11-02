@@ -6,7 +6,7 @@ typedef struct BiTNode
 	BiTNode *lchild,*rchild;
 }BiTNode,*BiTree;
 //根据先序序列构建二叉树
-//AB##CD#E#F##G##IK####
+//AB##CD#E#F##GH#IK####
 void creatBiTree(BiTree &T)
 {
 	char ch;
@@ -52,6 +52,17 @@ void PostTravel(BiTree &T)
 		printf("%c",T->data);
 	}
 }
+//树的高度 
+int depth(BiTree T)
+{ 
+	if(!T)return 0; 
+	else 
+	{ 
+		int m=depth(T->lchild); 
+		int n=depth(T->rchild); 
+		return (m>n?m:n)+1; 
+	} 
+} 
 int main()
 {
 	BiTree T;
@@ -69,6 +80,7 @@ int main()
 	printf("The PostTravel is:\n");
 	PostTravel(T);
 	printf("\n");
+	printf("The tree's depth is %d\n",depth(T));
 	return 0;
 }
 
