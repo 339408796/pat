@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct BiTNode
+{
+	char data;
+	BiTNode *lchild,*rchild;
+}BiTNode,*BiTree;
+//根据先序序列构建二叉树
+//AB##CD#E#F##G##IK####
+void creatBiTree(BiTree &T)
+{
+	char ch;
+	if((ch=getchar())=='#')
+		T=NULL;
+	else
+	{
+		T=(BiTNode *)malloc(sizeof(BiTNode));
+		if(!T)
+			exit(1);
+		T->data=ch;
+		creatBiTree(T->lchild);
+		creatBiTree(T->rchild);
+	}
+}
+//先序遍历
+void PreTravel(BiTree &T)
+{
+	if(T)
+	{
+		printf("%c",T->data);
+		PreTravel(T->lchild);
+		PreTravel(T->rchild);
+	}
+}
+//中序遍历
+void MidTravel(BiTree &T)
+{
+	if(T)
+	{
+		MidTravel(T->lchild);
+		printf("%c",T->data);
+		MidTravel(T->rchild);
+	}
+}
+//后序遍历
+void PostTravel(BiTree &T)
+{
+	if(T)
+	{  
+		PostTravel(T->lchild);
+		PostTravel(T->rchild);
+		printf("%c",T->data);
+	}
+}
+int main()
+{
+	BiTree T;
+	printf("input the bittree:\n");
+	creatBiTree(T);
+
+	printf("The Pretravel is:\n");
+	PreTravel(T);
+	printf("\n");
+
+	printf("The Midtravel is:\n");
+	MidTravel(T);
+	printf("\n");
+
+	printf("The PostTravel is:\n");
+	PostTravel(T);
+	printf("\n");
+	return 0;
+}
+
